@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Landing - Forty by HTML5 UP</title>
+		<title>Track Finder</title>
 		<link rel="icon" type="image/x-icon" href="favicon.png">
 
 		<meta charset="utf-8" />
@@ -64,7 +64,10 @@
 <section id="banner1" class="style2">
 	<div class="inner">
 	  <header class="major">
-		<h1>HIT Finder</h1>
+		<h1>Track Finder</h1>
+    <span>
+      We'll help you find some new music
+    </span>
 	  </header>
 	</div>
   </section>
@@ -93,23 +96,32 @@
           display: none;
           font-size: 1.2rem;
           margin-top: 1rem;
-          font-family: Source Sans Pro;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
 
         #result {
-            display: flex;
-            width: 100%;
-            text-align: center;
-            font-family: sans-serif;
-            margin:1rem;
-        }
+    display: flex;
+    width: 90%;
+    text-align: center;
+    font-family: sans-serif;
+    border-radius: 10px;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+#result .half {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centra orizzontalmente */
+    justify-content: center;
+}
         
         #result1 {
             display: flex;
             width: 100%;
             text-align: center;
             font-family: sans-serif;
-            margin:1rem;
         }
 
         .half {
@@ -117,11 +129,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            border: 1px solid #ccc;
+            border: 4px solid #ccc;
+           
         }
 
         .half h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             margin-bottom: 1rem;
         }
 
@@ -169,7 +182,7 @@
       <button onclick="answer('si')" style="margin: 0 1rem;">YES</button>
       <button onclick="answer('no')" style="margin: 0 1rem;">NO</button>
     </div>
-    <div id="loading-text">Searching for you</div>
+    <div id="loading-text">Our AI is searching for you</div>
     <div id="loader"></div>
 </div>
   
@@ -184,19 +197,49 @@
     </div>
   </div>
 
-  <div id="result1" class="split-images" style="display: none; margin-top: 100px;">
-    <div class="image-half" style="width: 210px; height: 210px; background-image: url('images/pic29.png');"></div>
-    <div class="image-half" style="width: 210px; height: 210px; background-image: url('images/pic30.png');"></div>
-  </div>
-  
-  <!-- Logo Spotify linkabile -->
-  <div id="result2" class="spotify-container" style="display: none; margin-bottom: 100px;">
+  <div id="result1" style="display: none; margin-top: 50px;  justify-content: center; align-items: center;">
     <a href="https://open.spotify.com/playlist/2bssMDGt4nEcyd12KwgVJ7?si=9a23568a17764c1a" target="_blank">
-      <img src="images/spoty_logo.png" alt="Spotify Logo" />
-      <div style="text-align:center; white; margin-top: 0.5rem; font-size: 1rem;">click here</div>
+      <img style="height: 210px; width: 210px;" src="images/pic29.png" alt="Spotify shit" />
+    </a>  
+  </div>
 
+  <div id="result2" class="spotify-container" style="display: none; ">
+    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2bssMDGt4nEcyd12KwgVJ7?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  </div>
+
+
+  <style>
+    .pulse {
+      animation: pulse 3s infinite;
+      text-decoration: underline;
+    }
+  
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.0);
+        opacity: 0.7;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+
+
+  <div  id="result3" class="style2" style="margin-bottom: 300px; display: none; margin-top: 10px;  justify-content: center; align-items: center; text-align: center; padding: 10px;">
+    <a href="https://open.spotify.com/playlist/2bssMDGt4nEcyd12KwgVJ7?si=9a23568a17764c1a">
+      <h3 class="pulse" style="  text-decoration: underline;">
+        SAVE IT<br>
+        STAY UPDATED
+      </h3>
     </a>
   </div>
+  
 
 
       
@@ -231,7 +274,8 @@
           document.getElementById('result').style.display = 'flex';
           document.getElementById('result1').style.display = 'flex';
           document.getElementById('result2').style.display = 'flex';
-  
+          document.getElementById('result3').style.display = 'flex';
+
           // Carica una traccia da songs.txt
           fetch('songs.txt')
             .then(response => response.text())
@@ -242,7 +286,7 @@
               document.getElementById('track-name').innerText = track;
               document.getElementById('artist-name').innerText = artist;
             });
-        }, 3000);
+        }, 1000);
       }
     }
   
@@ -395,8 +439,8 @@
         color: #fff;
     }
     50% {
-        transform: scale(1.2);
-        color: #ff5500;
+        transform: scale(1.08);
+        color: #ffffff;
     }
     100% {
         transform: scale(1);
