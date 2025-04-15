@@ -24,6 +24,8 @@
 
 
 <style>
+
+
 	#banner1.style2 {
 	  position: relative;
 	  overflow: hidden;
@@ -72,7 +74,7 @@
 	</div>
   </section>
 
-<div class="main">
+<div class="main" style="margin-bottom: 300px;">
 
    
     <style>
@@ -173,20 +175,29 @@
     transform: scale(1.1);
   }
 
+  a:focus {
+  outline: none;
+}
+
+.butt{
+  margin-top: 5px;
+}
+
 </style>
 
 
-<div id="quiz-container" style="height: 500px;margin-top: 100px;text-align: center; padding: 2rem;">
+<div id="quiz-container" style="height: 150px;margin-top: 100px;text-align: center; padding: 2rem;">
     <h2 id="question">Caricamento...</h2>
     <div id="buttons" style="margin-top: 1rem;">
-      <button onclick="answer('si')" style="margin: 0 1rem;">YES</button>
-      <button onclick="answer('no')" style="margin: 0 1rem;">NO</button>
+      <button class="butt" onclick="answer('si')" style="margin: 0 1rem;">YES</button>
+      <button class="butt" onclick="answer('no')" style="margin: 0 1rem;">xy</button>
+      <button class="butt" onclick="answer('si')" style="margin: 0 1rem;">NO</button>
     </div>
     <div id="loading-text">Our AI is searching for you</div>
     <div id="loader"></div>
 </div>
   
-  <div id="result" style="display: none; margin-top: 100px;">
+  <div id="result" style="display: flex; margin-top: 100px;">
     <div class="half">
       <h1>TRACK</h1>
       <p id="track-name"></p>
@@ -244,6 +255,38 @@
 
       
   <script>
+
+let loadingMessages = [
+      "Our AI is searching for you.",
+      "Our AI is searching for you..",
+      "Our AI is searching for you...",
+
+      "Analyzing your vibe.",
+      "Analyzing your vibe..",
+      "Analyzing your vibe...",
+
+      "Finding your perfect match.",
+      "Finding your perfect match..",
+      "Finding your perfect match...",
+    ];
+
+    let messageIndex = 0;
+    let loadingInterval;
+
+    function startLoadingAnimation() {
+      const loadingText = document.getElementById('loading-text');
+      loadingInterval = setInterval(() => {
+        messageIndex = (messageIndex + 1) % loadingMessages.length;
+        loadingText.innerText = loadingMessages[messageIndex];
+      }, 666);
+    }
+
+    function stopLoadingAnimation() {
+      clearInterval(loadingInterval);
+    }
+
+
+
     let questions = [];
     let currentQuestion = 0;
   
@@ -251,7 +294,7 @@
       .then(response => response.text())
       .then(data => {
         const lines = data.split('\n').filter(q => q.trim() !== '');
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 4; i++) {
           const index = Math.floor(Math.random() * lines.length);
           questions.push(lines.splice(index, 1)[0]);
         }
@@ -262,32 +305,32 @@
       if (currentQuestion < questions.length) {
         document.getElementById('question').innerText = questions[currentQuestion];
       } else {
-        // Mostra loading
-        document.getElementById('question').innerText = '';
-        document.getElementById('buttons').style.display = 'none';
-        document.getElementById('loading-text').style.display = 'block';
-        document.getElementById('loader').style.display = 'block';
-  
-        setTimeout(() => {
-          // Dopo 3 secondi, mostra risultato
-          document.getElementById('quiz-container').style.display = 'none';
-          document.getElementById('result').style.display = 'flex';
-          document.getElementById('result1').style.display = 'flex';
-          document.getElementById('result2').style.display = 'flex';
-          document.getElementById('result3').style.display = 'flex';
+  document.getElementById('question').innerText = '';
+  document.getElementById('buttons').style.display = 'none';
+  document.getElementById('loading-text').style.display = 'block';
+  document.getElementById('loader').style.display = 'block';
+  document.getElementById('loading-text').innerText = loadingMessages[0];
+  startLoadingAnimation(); // <- start rotation of phrases
 
-          // Carica una traccia da songs.txt
-          fetch('songs.txt')
-            .then(response => response.text())
-            .then(data => {
-              const lines = data.split('\n').filter(line => line.includes(';'));
-              const randomLine = lines[Math.floor(Math.random() * lines.length)];
-              const [track, artist] = randomLine.split(';').map(e => e.trim());
-              document.getElementById('track-name').innerText = track;
-              document.getElementById('artist-name').innerText = artist;
-            });
-        }, 4500);
-      }
+  setTimeout(() => {
+    stopLoadingAnimation(); // <- stop rotation when loading ends
+    document.getElementById('quiz-container').style.display = 'none';
+    document.getElementById('result').style.display = 'flex';
+    document.getElementById('result1').style.display = 'flex';
+    document.getElementById('result2').style.display = 'flex';
+    document.getElementById('result3').style.display = 'flex';
+
+    fetch('songs.txt')
+      .then(response => response.text())
+      .then(data => {
+        const lines = data.split('\n').filter(line => line.includes(';'));
+        const randomLine = lines[Math.floor(Math.random() * lines.length)];
+        const [track, artist] = randomLine.split(';').map(e => e.trim());
+        document.getElementById('track-name').innerText = track;
+        document.getElementById('artist-name').innerText = artist;
+      });
+  }, 6000); // <- torna a 3 secondi se vuoi
+}
     }
   
     function answer(risposta) {
