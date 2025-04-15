@@ -62,7 +62,7 @@
 <section id="banner1" class="style2">
 	<div class="inner">
 	  <header class="major">
-		<h1>Track Finder</h1>
+		<h1>P.I.T Track Finder</h1>
     <span>
       We'll help you find some new music
     </span>
@@ -235,6 +235,19 @@
         opacity: 1;
       }
     }
+
+
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 6s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
   </style>
 
 
@@ -251,24 +264,26 @@
 
       
   <script>
-
-let loadingMessages = [
+    let loadingMessages = [
       "Our AI is searching for you.",
       "Our AI is searching for you..",
       "Our AI is searching for you...",
-
+    
       "Analyzing your vibe.",
       "Analyzing your vibe..",
       "Analyzing your vibe...",
-
+    
       "Finding your perfect match.",
       "Finding your perfect match..",
       "Finding your perfect match...",
     ];
-
+    
     let messageIndex = 0;
     let loadingInterval;
-
+    let songs = [];
+    let artists = [];
+    let scrambleInterval;
+    
     function startLoadingAnimation() {
       const loadingText = document.getElementById('loading-text');
       loadingInterval = setInterval(() => {
@@ -276,16 +291,43 @@ let loadingMessages = [
         loadingText.innerText = loadingMessages[messageIndex];
       }, 666);
     }
-
+    
     function stopLoadingAnimation() {
       clearInterval(loadingInterval);
     }
-
-
-
+    
+    function startScrambleAnimation() {
+      scrambleInterval = setInterval(() => {
+        const trackPlaceholder = document.getElementById('track-name');
+        const artistPlaceholder = document.getElementById('artist-name');
+        
+        if (songs.length > 0 && artists.length > 0) {
+          const randomTrack = songs[Math.floor(Math.random() * songs.length)];
+          const randomArtist = artists[Math.floor(Math.random() * artists.length)];
+          trackPlaceholder.innerText = randomTrack;
+          artistPlaceholder.innerText = randomArtist;
+        }
+      }, 50); // Velocità della rotazione
+    }
+    
+    function stopScrambleAnimation() {
+      clearInterval(scrambleInterval);
+    }
+    
     let questions = [];
     let currentQuestion = 0;
-  
+    
+    fetch('songs.txt')
+      .then(response => response.text())
+      .then(data => {
+        const lines = data.split('\n').filter(line => line.includes(';'));
+        lines.forEach(line => {
+          const [track, artist] = line.split(';').map(e => e.trim());
+          songs.push(track);
+          artists.push(artist);
+        });
+      });
+    
     fetch('domande.txt')
       .then(response => response.text())
       .then(data => {
@@ -296,46 +338,54 @@ let loadingMessages = [
         }
         showQuestion();
       });
-  
+    
     function showQuestion() {
       if (currentQuestion < questions.length) {
         document.getElementById('question').innerText = questions[currentQuestion];
       } else {
-  document.getElementById('question').innerText = '';
-  document.getElementById('buttons').style.display = 'none';
-  document.getElementById('loading-text').style.display = 'block';
-  document.getElementById('loader').style.display = 'block';
-  document.getElementById('loading-text').innerText = loadingMessages[0];
-  startLoadingAnimation(); // <- start rotation of phrases
-
-  setTimeout(() => {
-    stopLoadingAnimation(); // <- stop rotation when loading ends
-    document.getElementById('quiz-container').style.display = 'none';
-    document.getElementById('result').style.display = 'flex';
-    document.getElementById('result1').style.display = 'flex';
-    document.getElementById('result2').style.display = 'flex';
-    document.getElementById('result3').style.display = 'flex';
-
-    fetch('songs.txt')
-      .then(response => response.text())
-      .then(data => {
-        const lines = data.split('\n').filter(line => line.includes(';'));
-        const randomLine = lines[Math.floor(Math.random() * lines.length)];
-        const [track, artist] = randomLine.split(';').map(e => e.trim());
-        document.getElementById('track-name').innerText = track;
-        document.getElementById('artist-name').innerText = artist;
-      });
-  }, 6000); // <- torna a 3 secondi se vuoi
-}
+        document.getElementById('question').innerText = '';
+        document.getElementById('buttons').style.display = 'none';
+        document.getElementById('loading-text').style.display = 'block';
+        document.getElementById('loader').style.display = 'block';
+        document.getElementById('loading-text').innerText = loadingMessages[0];
+        startLoadingAnimation();
+        startScrambleAnimation();
+    
+        setTimeout(() => {
+          stopLoadingAnimation();
+          stopScrambleAnimation();
+    
+          document.getElementById('quiz-container').style.display = 'none';
+    
+          const fadeElements = ['result', 'result1', 'result2', 'result3'];
+          fadeElements.forEach(id => {
+            const el = document.getElementById(id);
+            el.classList.add('fade-in');
+            el.style.display = 'flex';
+          });
+    
+          // Mostra il vero risultato
+          fetch('songs.txt')
+            .then(response => response.text())
+            .then(data => {
+              const lines = data.split('\n').filter(line => line.includes(';'));
+              const randomLine = lines[Math.floor(Math.random() * lines.length)];
+              const [track, artist] = randomLine.split(';').map(e => e.trim());
+              document.getElementById('track-name').innerText = track;
+              document.getElementById('artist-name').innerText = artist;
+            });
+        }, 6000);
+      }
     }
-  
+    
     function answer(risposta) {
       console.log(`Risposta ${currentQuestion + 1}: ${risposta}`);
       currentQuestion++;
       showQuestion();
     }
-  </script>
-      
+    </script>
+    
+    
       
       
 
