@@ -130,7 +130,7 @@ Menu -->
 									<li><a href="menu.html" class="button next scrolly">MENU</a></li>
 								</ul>
 								<ul class="actions">
-									<li><a href="test.html" class="button scrolly">TEST</a></li>
+									<li><a href="test.html" class="button scrolly">TRACK FINDER</a></li>
 								</ul>
 							</div>
 						</div>
@@ -371,8 +371,14 @@ Menu -->
   width: 70px;
   height: 70px;
   cursor: pointer;
-  display: none;
-  transition: opacity 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+#scrollToTopBtn.visible {
+  opacity: 1;
+  visibility: visible;
 }
 
 .scroll-btn-wrapper {
@@ -399,9 +405,12 @@ Menu -->
 
 .fixed-img {
   z-index: 2;
+  width: 60%;
+  height: 60%;
+  top: 50%;
+  left: 50%;
+
 }
-
-
 
 
 </style>
@@ -451,9 +460,7 @@ Menu -->
 			<script src="assets/js/main.js"></script>
 
 
-
 			<script>
-				// Mostra/Nasconde il bottone quando "logo_rotante" esce dallo schermo
 				document.addEventListener("DOMContentLoaded", function () {
 				  const scrollBtn = document.getElementById("scrollToTopBtn");
 				  const target = document.querySelector(".logo_rotante");
@@ -462,9 +469,9 @@ Menu -->
 					entries => {
 					  entries.forEach(entry => {
 						if (!entry.isIntersecting) {
-						  scrollBtn.style.display = "block";
+						  scrollBtn.classList.add("visible");
 						} else {
-						  scrollBtn.style.display = "none";
+						  scrollBtn.classList.remove("visible");
 						}
 					  });
 					},
@@ -474,7 +481,7 @@ Menu -->
 				  if (target) observer.observe(target);
 				});
 			  
-				// Rotazione della sola immagine inferiore
+				// Scroll-based rotation
 				window.addEventListener("scroll", function () {
 				  const scrollY = window.scrollY;
 				  const rotatingImg = document.querySelector(".rotating-img");
@@ -485,7 +492,7 @@ Menu -->
 				  }
 				});
 			  
-				// Scroll a inizio pagina
+				// Smooth scroll to top
 				function scrollToTop() {
 				  window.scrollTo({ top: 0, behavior: "smooth" });
 				}
@@ -496,8 +503,8 @@ Menu -->
 			<div id="scrollToTopBtn" onclick="scrollToTop()">
 				<div class="scroll-btn-wrapper">
 				<img src="images/pic10.png" class="rotating-img" alt="Rotating">
-				<img src="images/pic1.png" class="fixed-img" alt="Fixed">
-				</div>
+				<img src="images/pic1.png" class="fixed-img" style="width: 80%; height: 80%; top: 10%; left: 10%;" alt="Fixed">
+			</div>
 			</div>
 
 	</body>
