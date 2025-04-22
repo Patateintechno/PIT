@@ -254,7 +254,7 @@ async function caricaCommenti() {
         
         container.innerHTML = commenti.map(commento => `
             <div class="commento">
-                <strong>${commento.nome}</strong><br>
+                <strong>@${commento.nome}</strong><br>
                 <p>${commento.commento}</p>
             </div>
         `).join('');
