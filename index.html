@@ -218,53 +218,107 @@ Menu -->
 			
 					
 
-		<div id="commenti"></div>
 
-		<form id="form-commento">
-			<input type="text" name="nome" placeholder="Il tuo nome" required />
-			<textarea name="commento" placeholder="Scrivi un commento" required></textarea>
-			<button type="submit">Invia</button>
-		</form>
-		
-		<script>
-			const API_URL = 'https://script.google.com/macros/s/AKfycbw-3LEpKSOvDsDvSdQ4qmHh-9QRLiSzl6A4IN0klm4WaCHsZP9lPcemEHtf1cKAnQ-hEg/exec';
-		
-			async function caricaCommenti() {
-			const res = await fetch(API_URL);
-			const commenti = await res.json();
-			const container = document.getElementById('commenti');
-			container.innerHTML = commenti.map(c => `
-				<div class="commento">
-				<strong>${c.nome}</strong><br/>
-				<small>${new Date(c.timestamp).toLocaleString()}</small><br/>
-				<p>${c.commento}</p>
-				</div>
-			`).join('');
-			}
-		
-			document.getElementById('form-commento').addEventListener('submit', async (e) => {
-			e.preventDefault();
-			const form = e.target;
-			const dati = {
-				nome: form.nome.value,
-				commento: form.commento.value
-			};
-			await fetch(API_URL, {
-				method: 'POST',
-				body: JSON.stringify(dati),
-				headers: { 'Content-Type': 'application/json' }
-			});
-			form.reset();
-			caricaCommenti();
-			});
-		
-			// Carica i commenti al caricamento della pagina
-			caricaCommenti();
-		</script>
-					
+					<form id="form-commento">
+					  <input type="text" name="nome" placeholder="Il tuo nome" required />
+					  <textarea name="commento" placeholder="Scrivi un commento" required></textarea>
+					  <button type="submit">Invia</button>
+					</form>
 
+					<div id="commenti"></div>
 
+					<script>
+// URL del tuo Google Apps Script (sostituisci con il tuo)
+const API_URL = 'https://script.google.com/macros/s/AKfycbxIbNn3lp3m6d6D_ZL1hwsOlLrwR1IaLS7dH7dOOECQweyZD3yszaBzQ4RppR7V65K0Qg/exec';
 
+// Carica i commenti all'avvio
+document.addEventListener('DOMContentLoaded', caricaCommenti);
+
+// Funzione per caricare e visualizzare i commenti
+async function caricaCommenti() {
+    try {
+        const timestamp = new Date().getTime(); // Previene cache
+        const response = await fetch(`${API_URL}?t=${timestamp}`);
+        
+        if (!response.ok) {
+            throw new Error('Errore nel caricamento');
+        }
+        
+        const commenti = await response.json();
+        const container = document.getElementById('commenti');
+        
+        if (commenti.length === 0) {
+            container.innerHTML = '<p>Nessun commento ancora. Sii il primo a commentare!</p>';
+            return;
+        }
+        
+        container.innerHTML = commenti.map(commento => `
+            <div class="commento">
+                <strong>${commento.nome}</strong><br>
+                <p>${commento.commento}</p>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error("Errore:", error);
+        document.getElementById('commenti').innerHTML = 
+            '<p>Errore nel caricamento dei commenti. Ricarica la pagina.</p>';
+    }
+}
+
+// Funzione per inviare un nuovo commento
+async function inviaCommento(nome, commento) {
+    try {
+        // Usiamo FormData per bypassare i problemi CORS
+        const formData = new FormData();
+        formData.append('nome', nome);
+        formData.append('commento', commento);
+        
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            body: formData,
+            redirect: 'follow' // Importante per Google Apps Script
+        });
+        
+        return response.ok || response.redirected;
+    } catch (error) {
+        console.error("Errore nell'invio:", error);
+        return false;
+    }
+}
+
+// Gestione dell'invio del form
+document.getElementById('form-commento').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const nome = e.target.nome.value.trim();
+    const commento = e.target.commento.value.trim();
+    
+    if (!nome || !commento) {
+        alert('Compila tutti i campi!');
+        return;
+    }
+    
+    const button = e.target.querySelector('button');
+    const originalText = button.textContent;
+    
+    button.disabled = true;
+    button.textContent = 'Invio in corso...';
+    
+    const success = await inviaCommento(nome, commento);
+    
+    if (success) {
+        e.target.reset();
+        await caricaCommenti();
+        // Scrolla fino al primo commento (il nuovo)
+        document.querySelector('.commento')?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+        alert('Errore durante l\'invio del commento. Riprova più tardi.');
+    }
+    
+    button.disabled = false;
+    button.textContent = originalText;
+});
+					</script>
 
 
 
