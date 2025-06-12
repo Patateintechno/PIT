@@ -1,0 +1,533 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>P.I.T.</title>
+		<link rel="icon" type="image/x-icon" href="favicon.png">
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<a href="index.html" class="logo"><strong>P.I.T.</strong> <a style="font-size: 10px;">by Patate in Techno</a></a>
+<!-- 						
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+-->					
+					</header>
+
+<!-- 
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="menu.html">Menu</a></li>
+							<li><a href="generic.html">Generic</a></li>
+							<li><a href="elements.html">Elements</a></li>
+						</ul>
+						<ul class="actions stacked">
+							<li><a href="#" class="button primary fit">Get Started</a></li>
+							<li><a href="#" class="button fit">Log In</a></li>
+						</ul>
+					</nav>
+Menu -->
+
+					<style>
+
+#banner {
+    position: relative;
+    overflow: hidden;
+}
+
+#banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/pattern.png') center center / cover no-repeat;
+    opacity: 0.3; /* solo lo sfondo sarà opaco */
+    z-index: 0;
+}
+
+/* Tutto il contenuto del banner viene mostrato sopra lo sfondo */
+#banner .inner,
+#banner header,
+#banner .content {
+    position: relative;
+    z-index: 2;
+}
+
+</style>
+
+
+
+				<!-- Banner -->
+					<section id="banner" class="major">
+						<div class="inner">
+							<header class="major">
+
+								<style>
+
+
+									.rotate {
+										animation: rotation 10s infinite linear;
+										}
+
+									@keyframes rotation {
+										from {
+											transform: rotate(0deg);
+										}
+										to {
+											transform: rotate(359deg);
+										}
+									}
+
+
+									h1 {
+										text-align: center;
+									}
+
+								</style>
+									
+									
+									<div class="logo_rotante" style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+  
+										<h1 style="text-align: center;">"<i>Mirella</i>" TEE - PREORDER</h1>
+									    <h1 style="text-align: center;">2025</h1>
+
+										<div style="position: relative; width: 270px; height: 270px;">
+										  <!-- Immagine grande ruotante -->
+
+									  
+										  <!-- Immagine più piccola centrata -->
+										  <img src="images/pic1.png" 
+											   style="width: 210px; height: 210px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" />
+										  <img class="rotate" src="images/pic10.png" 
+											   style="width: 270px; height: 270px; position: absolute; top: 0; left: 0;" />
+										
+											</div>
+									  
+									  </div>
+							
+							</header>
+
+
+							<div class="content">
+								<p style="font-size: 20px;"><b>Vuoi la nuova maglietta? Clicca QUI SOTTO</b></p>
+								<ul class="actions">
+									<li style="font-size: 20px;"><a href="https://forms.gle/58sz4YLzqHTsKwks9" class="button next scrolly">PREORDER</a></li>
+								</ul>
+							</div>
+						</div>
+					</section>
+
+<div id="main">
+    <section class="image-container">
+        <div class="image-item">
+            <img src="images/fronte.png" alt="Maglietta Mirella - Fronte">
+        </div>
+        <div class="image-item">
+            <img src="images/retro.png" alt="Maglietta Mirella - Retro">
+        </div>
+    </section>
+</div>
+
+<style>
+  /* --- STILI PER LA SEZIONE IMMAGINI PRODOTTO (Incolonnate) --- */
+
+.image-container {
+    display: flex;         /* Manteniamo flex, ma cambiamo la direzione */
+    flex-direction: column;/* Le immagini saranno disposte in colonna */
+    align-items: center;   /* Centra le immagini orizzontalmente */
+    gap: 20px;             /* Spazio tra le immagini */
+    margin: 40px auto;     /* Margine sopra/sotto e centra il contenitore nella pagina */
+    max-width: 800px;      /* Limita la larghezza massima del contenitore per evitare immagini troppo grandi */
+    padding: 0 20px;       /* Aggiunge un po' di padding sui lati */
+}
+
+.image-item {
+    width: 100%;           /* Ogni immagine occuperà l'intera larghezza del suo contenitore */
+    max-width: 600px;      /* Larghezza massima per ogni singola immagine */
+    text-align: center;    /* Centra l'immagine all'interno del suo div */
+}
+
+.image-item img {
+    max-width: 100%;       /* Fondamentale: l'immagine non sarà mai più larga del suo contenitore (.image-item) */
+    height: auto;          /* Mantiene le proporzioni dell'immagine quando la larghezza cambia */
+    
+    display: block;        /* Rimuove lo spazio bianco extra sotto le immagini */
+    border-radius: 8px;    /* Angoli leggermente arrotondati (opzionale) */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Ombra leggera per dare profondità (opzionale) */
+}
+
+/* Nota: Con flex-direction: column, le media query per l'affiancamento non sono più necessarie qui */
+
+/* --- FINE STILI PER LA SEZIONE IMMAGINI PRODOTTO --- */
+</style>
+
+
+
+					<script>
+// URL del tuo Google Apps Script (sostituisci con il tuo)
+const API_URL = 'https://script.google.com/macros/s/AKfycbxIbNn3lp3m6d6D_ZL1hwsOlLrwR1IaLS7dH7dOOECQweyZD3yszaBzQ4RppR7V65K0Qg/exec';
+
+// Carica i commenti all'avvio
+document.addEventListener('DOMContentLoaded', caricaCommenti);
+
+// Funzione per caricare e visualizzare i commenti
+async function caricaCommenti() {
+    try {
+        const timestamp = new Date().getTime(); // Previene cache
+        const response = await fetch(`${API_URL}?t=${timestamp}`);
+        
+        if (!response.ok) {
+            throw new Error('Errore nel caricamento');
+        }
+        
+        const commenti = await response.json();
+        const container = document.getElementById('commenti');
+        
+        if (commenti.length === 0) {
+            container.innerHTML = '<p>Nessun commento ancora. Sii il primo a commentare!</p>';
+            return;
+        }
+        
+        container.innerHTML = commenti.map(commento => `
+            <div class="commento">
+                <strong>@${commento.nome}</strong><br>
+                <p>${commento.commento}</p>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error("Errore:", error);
+        document.getElementById('commenti').innerHTML = 
+            '<p>Errore nel caricamento dei commenti. Ricarica la pagina.</p>';
+    }
+}
+
+// Funzione per inviare un nuovo commento
+async function inviaCommento(nome, commento) {
+    try {
+        // Usiamo FormData per bypassare i problemi CORS
+        const formData = new FormData();
+        formData.append('nome', nome);
+        formData.append('commento', commento);
+        
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            body: formData,
+            redirect: 'follow' // Importante per Google Apps Script
+        });
+        
+        return response.ok || response.redirected;
+    } catch (error) {
+        console.error("Errore nell'invio:", error);
+        return false;
+    }
+}
+
+// Gestione dell'invio del form
+document.getElementById('form-commento').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const nome = e.target.nome.value.trim();
+    const commento = e.target.commento.value.trim();
+    
+    if (!nome || !commento) {
+        alert('Compila tutti i campi!');
+        return;
+    }
+    
+    const button = e.target.querySelector('button');
+    const originalText = button.textContent;
+    
+    button.disabled = true;
+    button.textContent = 'Invio in corso...';
+    
+    const success = await inviaCommento(nome, commento);
+    
+    if (success) {
+        e.target.reset();
+        await caricaCommenti();
+        // Scrolla fino al primo commento (il nuovo)
+        document.querySelector('.commento')?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+        alert('Errore durante l\'invio del commento. Riprova più tardi.');
+    }
+    
+    button.disabled = false;
+    button.textContent = originalText;
+});
+					</script>
+
+
+
+
+<style>
+	/* -------------------------
+   CONTACT SECTION STYLING
+-------------------------- */
+#contact .inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+#contact .contact-method {
+  text-align: center;
+}
+
+#contact .contact-method i {
+  display: block;
+  margin: 0 auto 1rem auto;
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
+</style>
+
+
+
+
+
+
+
+
+<style>
+	/* -------------------------
+   FOOTER BASE STYLE
+-------------------------- */
+#footer {
+    background: #111;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+    animation: fadeIn 1s ease-in;
+    position: relative;
+    z-index: 10;
+}
+
+
+
+#footer .icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding: 0;
+    margin-bottom: 0.5rem;
+    list-style: none;
+}
+
+#footer .icons li a {
+    font-size: 2.2rem;
+    color: #fff;
+    transition: transform 0.3s ease, color 0.3s ease;
+    display: inline-block;
+}
+
+/* Hover effect */
+#footer .icons li a:hover {
+    transform: scale(1.2);
+    color: #ff5500;
+}
+
+@media (max-width: 480px) {
+    #footer .icons li a {
+        animation: pulse 2s infinite ease-in-out;
+    }
+}
+
+/* Copyright area */
+#footer .copyright {
+    font-size: 0.8rem;
+    color: #aaa;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+#footer .copyright a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+#footer .copyright a:hover {
+    color: #ff5500;
+}
+
+/* Animazioni */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        color: #fff;
+    }
+    50% {
+        transform: scale(1.2);
+        color: #ff5500;
+    }
+    100% {
+        transform: scale(1);
+        color: #fff;
+    }
+}
+
+
+/* Scroll to Top Button */
+#scrollToTopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+#scrollToTopBtn.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-btn-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.scroll-btn-wrapper img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.rotating-img {
+  z-index: 1;
+  transform: rotate(0deg);
+  transition: transform 0.1s linear;
+}
+
+.fixed-img {
+  z-index: 2;
+  width: 60%;
+  height: 60%;
+  top: 50%;
+  left: 50%;
+
+}
+
+
+</style>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+	  const footer = document.getElementById("footer");
+	  const observer = new IntersectionObserver(
+		function (entries) {
+		  entries.forEach(entry => {
+			if (entry.isIntersecting) {
+			  footer.style.animation = "fadeIn 1s ease-in forwards";
+			}
+		  });
+		},
+		{ threshold: 0.3 }
+	  );
+  
+	  observer.observe(footer);
+	});
+  </script>
+
+
+
+
+
+	
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+						
+
+			<script>
+				document.addEventListener("DOMContentLoaded", function () {
+				  const scrollBtn = document.getElementById("scrollToTopBtn");
+				  const target = document.querySelector(".logo_rotante");
+			  
+				  const observer = new IntersectionObserver(
+					entries => {
+					  entries.forEach(entry => {
+						if (!entry.isIntersecting) {
+						  scrollBtn.classList.add("visible");
+						} else {
+						  scrollBtn.classList.remove("visible");
+						}
+					  });
+					},
+					{ threshold: 0.1 }
+				  );
+			  
+				  if (target) observer.observe(target);
+				});
+			  
+				// Scroll-based rotation
+				window.addEventListener("scroll", function () {
+				  const scrollY = window.scrollY;
+				  const rotatingImg = document.querySelector(".rotating-img");
+			  
+				  if (rotatingImg) {
+					const rotation = -scrollY * 0.2;
+					rotatingImg.style.transform = `rotate(${rotation}deg)`;
+				  }
+				});
+			  
+				// Smooth scroll to top
+				function scrollToTop() {
+				  window.scrollTo({ top: 0, behavior: "smooth" });
+				}
+			  </script>
+			  
+
+
+
+			
+
+	</body>
+</html>
