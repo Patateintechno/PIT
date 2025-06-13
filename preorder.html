@@ -7,7 +7,7 @@
 <html>
 	<head>
 
-    
+
 		<title>P.I.T.</title>
 		<link rel="icon" type="image/x-icon" href="favicon.png">
 		<meta charset="utf-8" />
@@ -129,7 +129,7 @@ Menu -->
 
 
 							<div class="content">
-								<p style="font-size: 20px;"><b>Vuoi la nuova maglietta? Clicca QUI </b></p>
+								<p style="font-size: 20px;"><b>Vuoi la nuova maglietta? Clicca QUI</b></p>
 								<ul class="actions">
 									<li style="font-size: 20px;"><a href="https://forms.gle/58sz4YLzqHTsKwks9" class="button next scrolly">PREORDER</a></li>
 								</ul>
@@ -146,6 +146,14 @@ Menu -->
             <img src="images/retro.png" alt="Maglietta Mirella - Retro">
         </div>
     </section>
+</div>
+
+<div class="content">
+	<p style="font-size: 20px; text-align: center;"><b>Te piasi? Ciolto de Mirella!</b></p>
+	<p style="font-size: 16px; text-align: center; margin:10px">
+		La nuova maglietta di P.I.T. racconta in maniera ironica e sottile come il movimento di @patateintechno sia nato, a Trieste la città del "no se pol", P.I.T. il collettivo ha saputo cogliere l'occasione per portare qualcosa di fresco e nuovo abbattendo le barriere della musica Mainstream, aggiornando il panorama musicale dei locali triestini. Tra lo sporco di una città che non li rappresentava riescono a fare eventi ovunque ribaltando gli equilibri musicali ormai datati. Se non sei mai stato a un loro evento non riuscirai a cogliere tutti i riferimenti presenti nella grafica della "Mirella - Tee" , se invece ci sei stato riesci a trovarli tutti?
+	</p>
+  <p style="font-size: 20px; text-align: center;">280GSM 100% Cotone</p>
 </div>
 
 <style>
@@ -183,125 +191,8 @@ Menu -->
 
 
 
-					<script>
-// URL del tuo Google Apps Script (sostituisci con il tuo)
-const API_URL = 'https://script.google.com/macros/s/AKfycbxIbNn3lp3m6d6D_ZL1hwsOlLrwR1IaLS7dH7dOOECQweyZD3yszaBzQ4RppR7V65K0Qg/exec';
-
-// Carica i commenti all'avvio
-document.addEventListener('DOMContentLoaded', caricaCommenti);
-
-// Funzione per caricare e visualizzare i commenti
-async function caricaCommenti() {
-    try {
-        const timestamp = new Date().getTime(); // Previene cache
-        const response = await fetch(`${API_URL}?t=${timestamp}`);
-        
-        if (!response.ok) {
-            throw new Error('Errore nel caricamento');
-        }
-        
-        const commenti = await response.json();
-        const container = document.getElementById('commenti');
-        
-        if (commenti.length === 0) {
-            container.innerHTML = '<p>Nessun commento ancora. Sii il primo a commentare!</p>';
-            return;
-        }
-        
-        container.innerHTML = commenti.map(commento => `
-            <div class="commento">
-                <strong>@${commento.nome}</strong><br>
-                <p>${commento.commento}</p>
-            </div>
-        `).join('');
-    } catch (error) {
-        console.error("Errore:", error);
-        document.getElementById('commenti').innerHTML = 
-            '<p>Errore nel caricamento dei commenti. Ricarica la pagina.</p>';
-    }
-}
-
-// Funzione per inviare un nuovo commento
-async function inviaCommento(nome, commento) {
-    try {
-        // Usiamo FormData per bypassare i problemi CORS
-        const formData = new FormData();
-        formData.append('nome', nome);
-        formData.append('commento', commento);
-        
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            body: formData,
-            redirect: 'follow' // Importante per Google Apps Script
-        });
-        
-        return response.ok || response.redirected;
-    } catch (error) {
-        console.error("Errore nell'invio:", error);
-        return false;
-    }
-}
-
-// Gestione dell'invio del form
-document.getElementById('form-commento').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const nome = e.target.nome.value.trim();
-    const commento = e.target.commento.value.trim();
-    
-    if (!nome || !commento) {
-        alert('Compila tutti i campi!');
-        return;
-    }
-    
-    const button = e.target.querySelector('button');
-    const originalText = button.textContent;
-    
-    button.disabled = true;
-    button.textContent = 'Invio in corso...';
-    
-    const success = await inviaCommento(nome, commento);
-    
-    if (success) {
-        e.target.reset();
-        await caricaCommenti();
-        // Scrolla fino al primo commento (il nuovo)
-        document.querySelector('.commento')?.scrollIntoView({ behavior: 'smooth' });
-    } else {
-        alert('Errore durante l\'invio del commento. Riprova più tardi.');
-    }
-    
-    button.disabled = false;
-    button.textContent = originalText;
-});
-					</script>
 
 
-
-
-<style>
-	/* -------------------------
-   CONTACT SECTION STYLING
--------------------------- */
-#contact .inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-}
-
-#contact .contact-method {
-  text-align: center;
-}
-
-#contact .contact-method i {
-  display: block;
-  margin: 0 auto 1rem auto;
-  font-size: 1.5rem;
-  color: #ffffff;
-}
-
-</style>
 
 
 
