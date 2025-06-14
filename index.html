@@ -132,7 +132,7 @@ Menu -->
 								<ul class="actions">
 									<li><a href="test.html" class="button scrolly">TRACK FINDER</a></li>
 								</ul>
-									<ul class="actions">
+								<ul class="actions">
 									<li><a href="preorder.html" class="button scrolly">PREORDER 2025</a></li>
 								</ul>
 							</div>
@@ -248,6 +248,7 @@ async function caricaCommenti() {
         }
         
         const commenti = await response.json();
+
         const container = document.getElementById('commenti');
         
         if (commenti.length === 0) {
